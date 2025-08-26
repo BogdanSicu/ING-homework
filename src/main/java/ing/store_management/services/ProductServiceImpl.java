@@ -22,8 +22,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDTO addProduct(ProductDTO newProduct) {
-        return null;
+    public List<ProductDTO> addProduct(ProductDTO productDTO) {
+        Product newProduct = productMapper.toModel(productDTO);
+        newProduct.setId(productRepo.getAllProducts().size() + 1);
+        return productRepo.add(newProduct).stream().map(productMapper::toDTO).toList();
     }
 
     @Override
@@ -33,21 +35,16 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO getProductById(long id) {
-        return null;
+        return productMapper.toDTO(productRepo.findById(id));
     }
 
     @Override
-    public void deleteProductById(long id) {
-
+    public List<ProductDTO> deleteProductById(long id) {
+        return productRepo.delete(id).stream().map(productMapper::toDTO).toList();
     }
 
     @Override
-    public ProductDTO getProductByName(String name) {
-        return null;
-    }
-
-    @Override
-    public ProductDTO updateProduct(ProductDTO updatedProduct) {
-        return null;
+    public List<ProductDTO> getProductsByName(String name) {
+        return productRepo.search(name).stream().map(productMapper::toDTO).toList();
     }
 }

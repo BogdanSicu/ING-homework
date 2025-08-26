@@ -2,10 +2,10 @@ package ing.store_management.controllers;
 
 import ing.store_management.dtos.ProductDTO;
 import ing.store_management.services.ProductService;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +30,24 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/{id}")
+    public ProductDTO getProductById(@PathVariable @Min(1) Long id) {
+        return productService.getProductById(id);
+    }
+
+    @GetMapping("/search")
+    public List<ProductDTO> getProductsByName(@RequestParam @NotBlank String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @PostMapping()
+    public List<ProductDTO> addNewProduct(@RequestBody ProductDTO productDTO) {
+        return productService.addProduct(productDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public List<ProductDTO> deleteProductsByName(@PathVariable @Min(1) Long id) {
+        return productService.deleteProductById(id);
+    }
 
 }
