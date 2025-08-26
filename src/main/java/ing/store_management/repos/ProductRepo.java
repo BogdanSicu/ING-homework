@@ -1,5 +1,6 @@
 package ing.store_management.repos;
 
+import ing.store_management.exceptions.ApiNotFoundException;
 import ing.store_management.models.Product;
 import org.springframework.stereotype.Repository;
 
@@ -36,8 +37,9 @@ public class ProductRepo {
     }
 
     public List<Product> delete(Long id) {
-        list.removeIf(x -> x.getId() == (id));
-        return list;
+        if(list.removeIf(x -> x.getId() == (id)))
+            return list;
+        else throw new ApiNotFoundException("Product was not found");
     }
 
     public List<Product> add(Product newProduct) {

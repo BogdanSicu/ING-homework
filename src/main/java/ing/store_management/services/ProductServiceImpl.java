@@ -1,6 +1,7 @@
 package ing.store_management.services;
 
 import ing.store_management.dtos.ProductDTO;
+import ing.store_management.exceptions.ApiNotFoundException;
 import ing.store_management.mappers.Mapper;
 import ing.store_management.models.Product;
 import ing.store_management.repos.ProductRepo;
@@ -35,7 +36,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO getProductById(long id) {
-        return productMapper.toDTO(productRepo.findById(id));
+        try {
+            return productMapper.toDTO(productRepo.findById(id));
+        } catch (Exception e) {
+            throw new ApiNotFoundException("Product was not found");
+        }
     }
 
     @Override

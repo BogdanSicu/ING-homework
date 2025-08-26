@@ -5,6 +5,8 @@ import ing.store_management.services.ProductService;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,28 +28,28 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<ProductDTO> getProducts() {
-        return productService.getProducts();
+    public ResponseEntity<List<ProductDTO>> getProducts() {
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable @Min(1) Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable @Min(1) Long id) {
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.FOUND);
     }
 
     @GetMapping("/search")
-    public List<ProductDTO> getProductsByName(@RequestParam @NotBlank String name) {
-        return productService.getProductsByName(name);
+    public ResponseEntity<List<ProductDTO>> getProductsByName(@RequestParam @NotBlank String name) {
+        return new ResponseEntity<>(productService.getProductsByName(name), HttpStatus.FOUND);
     }
 
     @PostMapping()
-    public List<ProductDTO> addNewProduct(@RequestBody ProductDTO productDTO) {
-        return productService.addProduct(productDTO);
+    public ResponseEntity<List<ProductDTO>> addNewProduct(@RequestBody ProductDTO productDTO) {
+        return new ResponseEntity<>(productService.addProduct(productDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public List<ProductDTO> deleteProductsByName(@PathVariable @Min(1) Long id) {
-        return productService.deleteProductById(id);
+    public ResponseEntity<List<ProductDTO>> deleteProductsByName(@PathVariable @Min(1) Long id) {
+        return new ResponseEntity<>(productService.deleteProductById(id), HttpStatus.ACCEPTED);
     }
 
 }
