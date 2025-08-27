@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductDTO> addProduct(ProductDTO productDTO) {
         Product newProduct = productMapper.toModel(productDTO);
-        newProduct.setId(productRepo.getAllProducts().size() + 1);
         return productRepo.add(newProduct).stream().map(productMapper::toDTO).toList();
     }
 

@@ -11,10 +11,15 @@ import java.util.stream.Collectors;
 @Repository
 public class ProductRepo {
 
+    private static long idCount = 0;
+
     private final List<Product> list = new ArrayList<>() {{
-        add(new Product(1L, "product 1", 10f, 1000L));
-        add(new Product(2L, "product 2", 20f, 2000L));
-        add(new Product(3L, "product 3", 30f, 3000L));
+        idCount++;
+        add(new Product(idCount, "product 1", 10f, 1000L));
+        idCount++;
+        add(new Product(idCount, "product 2", 20f, 2000L));
+        idCount++;
+        add(new Product(idCount, "product 3", 30f, 3000L));
     }};
 
     public List<Product> getAllProducts() {
@@ -44,7 +49,8 @@ public class ProductRepo {
 
     public List<Product> add(Product newProduct) {
         Product product = new Product();
-        product.setId(newProduct.getId());
+        idCount++;
+        product.setId(idCount);
         product.setName(newProduct.getName());
         product.setQuantity(newProduct.getQuantity());
         product.setPrice(newProduct.getPrice());
