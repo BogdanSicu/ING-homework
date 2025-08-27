@@ -23,7 +23,7 @@ Create an API that acts as a store management tool
 
 - Design error mechanism and handling plus logging (✓)
 
-- Write unit tests, at least for one class
+- Write unit tests, at least for one class (✓) -> *done with AI*
 
 - Nice to have: use Java 17+ features (✓)
 
