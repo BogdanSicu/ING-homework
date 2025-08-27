@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +24,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("hello-world")
+    @PreAuthorize("hasRole('GENERIC')")
+    @GetMapping("/hello-world")
     public String HelloWorld() {
         return "Hello World!";
     }
 
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity<List<ProductDTO>> getProducts() {
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
@@ -43,11 +45,13 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProductsByName(name), HttpStatus.FOUND);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public ResponseEntity<List<ProductDTO>> addNewProduct(@RequestBody @Valid ProductDTO productDTO) {
         return new ResponseEntity<>(productService.addProduct(productDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<List<ProductDTO>> deleteProductsByName(@PathVariable @Min(1) Long id) {
         return new ResponseEntity<>(productService.deleteProductById(id), HttpStatus.ACCEPTED);

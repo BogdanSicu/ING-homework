@@ -19,7 +19,7 @@ Create an API that acts as a store management tool
 
 - Implement some functions, for example: add-product, find-product, change-price or others (✓)
 
-- Implement a basic authentication mechanism and role based endpoint access 
+- Implement a basic authentication mechanism and role based endpoint access (✓) -> *the users and passwords should usually be hidden but this is just for demo purposes*
 
 - Design error mechanism and handling plus logging (✓)
 

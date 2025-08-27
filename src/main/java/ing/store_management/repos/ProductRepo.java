@@ -26,7 +26,7 @@ public class ProductRepo {
         return list;
     }
 
-    public Product findById(long id){
+    public Product findById(long id) {
         if(id <= list.size()) {
             for (Product product : list) {
                 if (product.getId() == (id)) {
