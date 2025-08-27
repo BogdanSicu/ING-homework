@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 
 public record ExceptionPayload(
         String message,
-        Throwable throwable,
         HttpStatus httpStatus,
         ZonedDateTime timestamp) {
 }

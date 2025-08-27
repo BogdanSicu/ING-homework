@@ -2,6 +2,7 @@ package ing.store_management.controllers;
 
 import ing.store_management.dtos.ProductDTO;
 import ing.store_management.services.ProductService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<List<ProductDTO>> addNewProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<List<ProductDTO>> addNewProduct(@RequestBody @Valid ProductDTO productDTO) {
         return new ResponseEntity<>(productService.addProduct(productDTO), HttpStatus.CREATED);
     }
 
